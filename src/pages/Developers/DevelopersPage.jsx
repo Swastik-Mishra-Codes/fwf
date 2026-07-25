@@ -1,54 +1,67 @@
 import React from 'react'
-import PageHero from '../../components/organisms/PageHero/PageHero.jsx'
+import { motion } from 'motion/react'
 import SectionTitle from '../../components/atoms/SectionTitle/SectionTitle.jsx'
+import { LampContainer } from '../../components/ui/lamp.jsx'
 import { developers } from '../../data/team.js'
 import './DevelopersPage.css'
 
+import { FloatingPathsBackground } from '../../components/ui/floating-paths'
+
 export default function DevelopersPage() {
-  const leadDeveloper = developers.find((developer) =>
-    developer.role.toLowerCase().includes('lead')
-  )
-
-  const otherDevelopers = developers.filter(
-    (developer) => developer.id !== leadDeveloper?.id
-  )
-
   return (
-    <main>
-      <PageHero
-        eyebrow="Developers"
-        title="Website Development Team"
-        subtitle="The students who designed, developed, tested, and maintained the Mathematics Club website."
-      />
+    <main className="bg-[#020617]">
+      {/* Lamp Hero */}
+      <LampContainer>
+        <motion.div
+          initial={{ opacity: 0.5, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 0.8,
+            ease: "easeInOut",
+          }}
+          className="flex flex-col items-center text-center"
+        >
+          <p className="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">Developers</p>
+          <h1 className="mt-2 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-4xl font-medium tracking-tight text-transparent md:text-7xl">
+            Website Development<br />Team
+          </h1>
+          <p className="mt-4 text-slate-400 text-sm md:text-base max-w-xl">
+            The students who designed, developed, tested, and maintained the Mathematics Club website.
+          </p>
+        </motion.div>
+      </LampContainer>
 
-      <section className="section developers-page">
-        <div className="container">
-          <SectionTitle
-            eyebrow="Development Team"
-            title="Meet the Developers"
-            subtitle="The team that contributed to structure, design, content, responsiveness, and deployment."
-          />
+      <section className="section developers-page relative overflow-hidden">
+        <FloatingPathsBackground position={-1}>
+          <div className="container relative z-10 py-12">
+            <SectionTitle
+              eyebrow="Development Team"
+              title="Meet the Developers"
+              subtitle="The team that contributed to structure, design, content, responsiveness, and deployment."
+            />
 
-          {leadDeveloper && (
-            <div className="lead-developer-area">
-              <DeveloperCard developer={leadDeveloper} isLead />
+            <div className="developers-grid">
+              {developers.map((developer) => (
+                <DeveloperCard developer={developer} key={developer.id} />
+              ))}
             </div>
-          )}
-
-          <div className="developers-grid">
-            {otherDevelopers.map((developer) => (
-              <DeveloperCard developer={developer} key={developer.id} />
-            ))}
           </div>
-        </div>
+        </FloatingPathsBackground>
       </section>
     </main>
   )
 }
 
-function DeveloperCard({ developer, isLead = false }) {
+import { Card } from '../../components/ui/card'
+
+function DeveloperCard({ developer }) {
+  const isLead = developer.role.toLowerCase().includes('lead')
   return (
-    <article className={`developer-card ${isLead ? 'developer-card--lead' : ''}`}>
+    <Card
+      variant="animated-border"
+      className="!max-w-full !p-0 overflow-hidden developer-card"
+    >
       <div className="developer-card__image-box">
         <img
           src={developer.photo || '/assets/members/avatar.svg'}
@@ -61,6 +74,9 @@ function DeveloperCard({ developer, isLead = false }) {
         />
       </div>
 
+      {/* Overlay to darken background image for text readability */}
+      <div className="developer-card__overlay" />
+
       <div className="developer-card__body">
         <div className="developer-card__top">
           {isLead ? (
@@ -72,37 +88,31 @@ function DeveloperCard({ developer, isLead = false }) {
 
         <h3 className="developer-card__name">{developer.name}</h3>
 
-        {isLead && <p className="developer-card__role">{developer.role}</p>}
-
         <div className="developer-card__socials">
           {developer.linkedin && (
-            <a href={developer.linkedin} target="_blank" rel="noreferrer">
+            <a href={developer.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <LinkedInIcon />
-              <span>LinkedIn</span>
             </a>
           )}
 
           {developer.github && (
-            <a href={developer.github} target="_blank" rel="noreferrer">
+            <a href={developer.github} target="_blank" rel="noreferrer" aria-label="GitHub">
               <GitHubIcon />
-              <span>GitHub</span>
             </a>
           )}
 
           {developer.email && (
-            <a href={`mailto:${developer.email}`}>
+            <a href={`mailto:${developer.email}`} aria-label="Gmail">
               <GmailIcon />
-              <span>Gmail</span>
             </a>
           )}
         </div>
 
         <div className="developer-card__contribution">
-          <h4>Contribution</h4>
           <p>{developer.contribution}</p>
         </div>
       </div>
-    </article>
+    </Card>
   )
 }
 

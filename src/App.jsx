@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Navbar from './components/organisms/Navbar/Navbar.jsx'
+import NotchNavbar from './components/ui/notch-navbar.jsx'
 import Footer from './components/organisms/Footer/Footer.jsx'
 import HomePage from './pages/Home/HomePage.jsx'
 import EventsPage from './pages/EventsPage/EventsPage.jsx'
@@ -13,7 +13,7 @@ import DevelopersPage from './pages/Developers/DevelopersPage.jsx'
 export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <NotchNavbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/events" element={<EventsPage />} />

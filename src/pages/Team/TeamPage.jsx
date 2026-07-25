@@ -277,6 +277,7 @@ export function StaggeredGrid({
                             src="/assets/team/faculty.png" 
                             alt="BHARAT SONI"
                             className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                            loading="lazy"
                         />
 
                         {/* Gradient Overlay for Hover */}
@@ -327,14 +328,15 @@ export function StaggeredGrid({
                             const member = item;
                             const letterName = String.fromCharCode(65 + i);
                             return (
-                                <figure key={`member-${i}`} data-col={i % 7} className="grid__item m-0 relative z-10 [perspective:800px] will-change-[transform,opacity] group cursor-pointer">
-                                    <div className="grid__item-img w-full h-full [backface-visibility:hidden] will-change-transform rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] relative flex items-center justify-center transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-xl group-hover:border-transparent">
+                                <figure key={`member-${i}`} data-col={i % 7} className="grid__item m-0 relative z-10 [perspective:800px] group cursor-pointer">
+                                    <div className="grid__item-img w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] relative flex items-center justify-center transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-xl group-hover:border-transparent">
 
                                         {/* Member Photo */}
                                         <img 
                                             src={member.photo} 
                                             alt={`Member ${letterName}`}
                                             className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                            loading="lazy"
                                         />
 
                                         {/* Gradient Overlay for Hover */}

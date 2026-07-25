@@ -95,7 +95,7 @@ export function MagneticSpotlightMarquee({
     return () => ctx.revert();
   }, [images]);
 
-  // Wake effect logic
+  // Wake effect logic — only runs rAF when section is visible
   useEffect(() => {
     if (!containerRef.current || !marqueeStripRef.current || !contentWrapperRef.current) return;
 
@@ -115,6 +115,7 @@ export function MagneticSpotlightMarquee({
 
     let targets = [];
     let rafId;
+    let isVisible = false;
 
     const measureGeometry = () => {
       sectionHeight = spotlightSection.getBoundingClientRect().height;
@@ -173,6 +174,8 @@ export function MagneticSpotlightMarquee({
     spotlightSection.addEventListener('mouseleave', handlePointerLeave);
 
     const render = () => {
+      if (!isVisible) return; // Stop loop when off-screen
+
       stripCurrentY += (stripTargetY - stripCurrentY) * config.stripFollowEase;
       gsap.set(marqueeStrip, { y: stripCurrentY });
 
@@ -204,13 +207,25 @@ export function MagneticSpotlightMarquee({
 
       rafId = requestAnimationFrame(render);
     };
-    rafId = requestAnimationFrame(render);
+
+    // IntersectionObserver: only run rAF when visible
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          rafId = requestAnimationFrame(render);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(spotlightSection);
 
     return () => {
       window.removeEventListener('resize', measureGeometry);
       spotlightSection.removeEventListener('mousemove', handlePointerMove);
       spotlightSection.removeEventListener('mouseleave', handlePointerLeave);
       cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
   }, []);
 
