@@ -131,13 +131,13 @@ export function StaggeredGrid({
             const gridFullItems = gridFullRef.current?.querySelectorAll('.grid__item')
             if (!gridFullItems || gridFullItems.length === 0) return
 
-            const numColumns = 7
+            const computedStyle = getComputedStyle(gridFullRef.current);
+            const numColumns = computedStyle.gridTemplateColumns.split(' ').length || 2;
             const middleColumnIndex = Math.floor(numColumns / 2)
 
             const columns = Array.from({ length: numColumns }, () => [])
-            gridFullItems.forEach((item) => {
-                const colAttr = item.getAttribute('data-col')
-                const columnIndex = colAttr !== null ? parseInt(colAttr, 10) : 0
+            gridFullItems.forEach((item, idx) => {
+                const columnIndex = idx % numColumns;
                 if (columns[columnIndex]) {
                     columns[columnIndex].push(item)
                 }
@@ -188,9 +188,7 @@ export function StaggeredGrid({
     // Filter members based on selected year
     const filteredMembers = members.filter((member) => member.year === selectedYear);
 
-    const minSlots = 14;
-    const totalSlots = Math.max(minSlots, Math.ceil(filteredMembers.length / 7) * 7);
-    const mixedGridItems = Array.from({ length: totalSlots }, (_, i) => filteredMembers[i] || null);
+    const mixedGridItems = filteredMembers;
 
     const dockItems = [
         {
@@ -262,9 +260,9 @@ export function StaggeredGrid({
             {/* Faculty in Charge Section */}
             <section id="faculty" className="w-full py-20 flex items-center justify-center border-b border-[#1e3457]/30 relative">
                 {/* Inner container — text + card side by side, visually centred */}
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '4rem', maxWidth: '860px', width: '100%', padding: '0 2rem' }}>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full px-8" style={{ maxWidth: '860px' }}>
                     {/* Text Block */}
-                    <div style={{ maxWidth: '380px', flex: '1' }}>
+                    <div className="max-w-[380px] w-full text-center md:text-left">
                         <p className="text-[#c9a84c] text-xs font-bold uppercase tracking-widest mb-2">Academic Guidance</p>
                         <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Faculty In-Charge</h2>
                         <p className="text-zinc-300 leading-relaxed text-sm md:text-base">
@@ -274,7 +272,7 @@ export function StaggeredGrid({
                         </p>
                     </div>
                     {/* Faculty Card */}
-                    <div style={{ width: '240px', flexShrink: 0, perspective: '800px' }}>
+                    <div className="w-[200px] md:w-[240px] shrink-0" style={{ perspective: '800px' }}>
                         <div className="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] relative flex items-center justify-center transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl hover:border-transparent group cursor-pointer">
                             <img 
                                 src="/assets/team/faculty.png" 
@@ -293,7 +291,7 @@ export function StaggeredGrid({
             </section>
 
             {/* Large gap between Faculty and Meet The Team */}
-            <div style={{ height: '160px' }} />
+            <div className="h-20 md:h-40" />
 
             <section id="members" className="grid place-items-center w-full relative">
                 <div className="w-full flex flex-col items-center justify-center pt-8 pb-16 gap-8">
@@ -317,11 +315,7 @@ export function StaggeredGrid({
 
                 <div 
                     ref={gridFullRef} 
-                    className="grid--full relative w-full mt-20 mb-16 h-auto max-w-none p-4 grid gap-4 grid-cols-7"
-                    style={{
-                        gridTemplateRows: `repeat(${totalSlots / 7}, minmax(0, 1fr))`,
-                        aspectRatio: `${7 / ((totalSlots / 7) * 1.25)}`
-                    }}
+                    className="grid--full relative w-full mt-20 mb-16 h-auto max-w-none p-4 grid gap-2 sm:gap-3 md:gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7"
                 >
                     <div className="grid-overlay absolute inset-0 z-[15] pointer-events-none opacity-0 bg-[#0d1b2e]/80 rounded-lg transition-opacity duration-500" />
                     {mixedGridItems.map((item, i) => {
@@ -329,8 +323,8 @@ export function StaggeredGrid({
                             const member = item;
                             const letterName = String.fromCharCode(65 + i);
                             return (
-                                <figure key={`member-${i}`} data-col={i % 7} className="grid__item m-0 relative z-10 group cursor-pointer" style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: '0.75rem' }}>
-                                    <div className="grid__item-img [backface-visibility:hidden] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-xl group-hover:border-transparent" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+                                <figure key={`member-${i}`} className="grid__item m-0 relative z-10 group cursor-pointer aspect-[3/4]" style={{ width: '100%', overflow: 'hidden', borderRadius: '0.75rem' }}>
+                                    <div className="grid__item-img [backface-visibility:hidden] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-xl group-hover:border-transparent absolute inset-0 w-full h-full">
 
                                         {/* Member Photo */}
                                         <img 

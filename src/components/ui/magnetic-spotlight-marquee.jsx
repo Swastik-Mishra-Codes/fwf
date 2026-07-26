@@ -233,7 +233,7 @@ export function MagneticSpotlightMarquee({
     <section
       ref={containerRef}
       className={cn(
-        "spotlight relative w-full h-[100vh] min-h-[800px] overflow-hidden bg-white dark:bg-[#0f0f0f] text-white font-sans",
+        "spotlight relative w-full h-[100vh] min-h-[600px] md:min-h-[800px] overflow-hidden bg-white dark:bg-[#0f0f0f] text-white font-sans",
         className
       )}
       style={{ fontFamily: "'Instrument Sans', sans-serif" }}

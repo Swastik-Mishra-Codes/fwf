@@ -43,10 +43,40 @@ export function NotchNavbar({ className, ...props }) {
 
   return (
     <>
+      {/* ═══ MOBILE NAVBAR (< md) ═══ */}
       <header
-        className={cn("fixed top-0 inset-x-0 z-50 h-16 flex px-0", className)}
+        className={cn("fixed top-0 inset-x-0 z-50 h-14 flex items-center justify-between px-4 md:hidden", className)}
+        style={{ backgroundColor: '#040713' }}
         role="banner"
         {...props}
+      >
+        {/* Bottom border line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-[#1e3457]/60" />
+
+        <button
+          className="p-2 text-white/70 hover:text-white transition-colors"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-5 h-5" />
+          ) : (
+            <Menu className="w-5 h-5" />
+          )}
+        </button>
+
+        {/* Centered logo text on mobile */}
+        <span className="text-white/90 text-sm font-semibold tracking-wider">MathClub</span>
+
+        {/* Spacer to balance the hamburger */}
+        <div className="w-9" />
+      </header>
+
+      {/* ═══ DESKTOP NOTCH NAVBAR (≥ md) ═══ */}
+      <header
+        className={cn("fixed top-0 inset-x-0 z-50 h-16 hidden md:flex px-0", className)}
+        role="banner"
       >
         {/* Left Side Bar - Flexible width */}
         <div className="flex-1 h-10 bg-[#040713] z-20 relative min-w-0" style={{ backgroundColor: '#040713' }}>
@@ -56,7 +86,7 @@ export function NotchNavbar({ className, ...props }) {
           </svg>
         </div>
 
-        {/* Responsive Notch Container - 3 Slices */}
+        {/* Notch Container - 3 Slices */}
         <div className="flex h-16 relative z-10 shrink-0 -ml-px">
           {/* Left Slice (Corner) */}
           <div className="w-[50px] h-full relative shrink-0">
@@ -84,29 +114,12 @@ export function NotchNavbar({ className, ...props }) {
             </div>
 
             {/* Content Layer */}
-            <div className="relative w-full h-full flex items-end justify-center pb-2 px-4 md:px-8">
-              {/* Desktop Nav - Unified with consistent spacing */}
-              <nav className="hidden md:flex gap-8 lg:gap-10 items-center justify-center mb-1 shrink-0">
+            <div className="relative w-full h-full flex items-end justify-center pb-2 px-8">
+              <nav className="flex gap-8 lg:gap-10 items-center justify-center mb-1 shrink-0">
                 {[...items.left, ...items.right].map((item) => (
                   <NavLink key={item.label} {...item} />
                 ))}
               </nav>
-
-              {/* Mobile Menu Button */}
-              <div className="md:hidden w-full flex items-center justify-between">
-                <button
-                  className="mb-1 p-1 text-white/70 hover:text-white transition-colors"
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  aria-label="Toggle menu"
-                  aria-expanded={isMobileMenuOpen}
-                >
-                  {isMobileMenuOpen ? (
-                    <X className="w-5 h-5" />
-                  ) : (
-                    <Menu className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
             </div>
           </div>
 
@@ -139,12 +152,12 @@ export function NotchNavbar({ className, ...props }) {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 bg-[#040713] border-b border-[#1e3457]/50 p-4 md:hidden shadow-lg"
-            style={{ backgroundColor: '#040713' }}
+            className="fixed inset-x-0 top-14 z-40 bg-[#040713]/98 backdrop-blur-md border-b border-[#1e3457]/50 p-4 md:hidden shadow-lg max-h-[calc(100vh-3.5rem)] overflow-y-auto"
+            style={{ backgroundColor: 'rgba(4, 7, 19, 0.98)' }}
           >
             <nav className="flex flex-col gap-1">
               {[...items.left, ...items.right].map((item) => (
