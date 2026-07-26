@@ -307,7 +307,7 @@ export function StaggeredGrid({
                     </AsciiGlitchRipple>
 
                     {/* Year Selector Option Bar - Always Centered */}
-                    <div className="z-30 flex items-center justify-center my-2 mb-10">
+                    <div className="z-30 flex items-center justify-center mt-4 mb-12">
                         <GlassDock 
                             items={dockItems} 
                             dockClassName="bg-[#132340]/80 border-[#1e3457] backdrop-blur-md shadow-2xl py-3 px-6 rounded-2xl"
@@ -317,7 +317,7 @@ export function StaggeredGrid({
 
                 <div 
                     ref={gridFullRef} 
-                    className="grid--full relative w-full mt-10 my-[4vh] h-auto max-w-none p-4 grid gap-4 grid-cols-7"
+                    className="grid--full relative w-full mt-20 mb-16 h-auto max-w-none p-4 grid gap-4 grid-cols-7"
                     style={{
                         gridTemplateRows: `repeat(${totalSlots / 7}, minmax(0, 1fr))`,
                         aspectRatio: `${7 / ((totalSlots / 7) * 1.25)}`

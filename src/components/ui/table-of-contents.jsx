@@ -8,6 +8,8 @@ const sections = [
   { id: 'members', label: 'Members' },
 ];
 
+const ITEM_HEIGHT = 48; // px per item (gap-4 = 16px + h-8 = 32px)
+
 export function TableOfContents() {
   const [activeSection, setActiveSection] = useState('overview');
 
@@ -53,44 +55,49 @@ export function TableOfContents() {
         <span>On this page</span>
       </div>
 
-      {/* Navigation List */}
-      <div className="relative pl-6 flex flex-col gap-4 py-2">
-        {/* Track Line */}
-        <div className="absolute left-[3.5px] top-4 bottom-4 w-[1.5px] bg-[#1e3457]/50 rounded" />
+      {/* Navigation List — two-column: indicator | label */}
+      <div className="flex flex-row items-start gap-3">
 
-        {/* Active Line Segment */}
-        <div 
-          className="absolute left-[3.5px] w-[1.5px] bg-white transition-all duration-300 ease-out"
-          style={{
-            top: '16px',
-            height: `${activeIndex * 48}px`,
-          }}
-        />
+        {/* Left column: track line + animated dot */}
+        <div className="relative flex flex-col items-center py-2" style={{ width: '10px', minHeight: `${sections.length * ITEM_HEIGHT}px` }}>
+          {/* Track line */}
+          <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-[1.5px] bg-[#1e3457]/50 rounded" />
 
-        {/* Active Dot Indicator */}
-        <div 
-          className="absolute left-[-0.5px] w-2.5 h-2.5 rounded-full bg-white border border-[#0d1b2e] shadow-[0_0_8px_#ffffff] transition-all duration-300 ease-out"
-          style={{
-            top: `${activeIndex * 48 + 11}px`,
-          }}
-        />
+          {/* Active highlight line */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 w-[1.5px] bg-white transition-all duration-300 ease-out"
+            style={{
+              top: '16px',
+              height: `${activeIndex * ITEM_HEIGHT}px`,
+            }}
+          />
 
-        {/* Items */}
-        {sections.map((sec) => {
-          const isActive = sec.id === activeSection;
-          return (
-            <button
-              key={sec.id}
-              onClick={() => handleClick(sec.id)}
-              className={cn(
-                "h-8 flex items-center text-left text-sm font-medium transition-all duration-300 outline-none hover:text-white",
-                isActive ? "text-white font-semibold scale-105" : "text-zinc-500"
-              )}
-            >
-              {sec.label}
-            </button>
-          );
-        })}
+          {/* Moving dot */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-white border border-[#0d1b2e] shadow-[0_0_8px_#ffffff] transition-all duration-300 ease-out"
+            style={{ top: `${activeIndex * ITEM_HEIGHT + 10}px` }}
+          />
+        </div>
+
+        {/* Right column: text labels */}
+        <div className="flex flex-col gap-4 py-2">
+          {sections.map((sec) => {
+            const isActive = sec.id === activeSection;
+            return (
+              <button
+                key={sec.id}
+                onClick={() => handleClick(sec.id)}
+                className={cn(
+                  'h-8 flex items-center text-left text-sm font-medium transition-all duration-300 outline-none hover:text-white whitespace-nowrap',
+                  isActive ? 'text-white font-semibold' : 'text-zinc-500'
+                )}
+              >
+                {sec.label}
+              </button>
+            );
+          })}
+        </div>
+
       </div>
     </div>
   );

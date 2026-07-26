@@ -10,7 +10,7 @@ const NavLink = ({ to, icon: Icon, label }) => (
     to={to}
     className={({ isActive }) =>
       cn(
-        "group flex items-center gap-1.5 text-sm font-medium transition-colors whitespace-nowrap",
+        "group flex items-center gap-2 text-sm font-medium transition-colors whitespace-nowrap",
         isActive
           ? "!text-[#c9a84c]"
           : "!text-white/70 hover:!text-white"
@@ -84,41 +84,29 @@ export function NotchNavbar({ className, ...props }) {
             </div>
 
             {/* Content Layer */}
-            <div className="relative w-full h-full flex items-end justify-between pb-2 px-4 md:px-8">
-              {/* Desktop Left Nav */}
-              <nav className="hidden md:flex gap-10 mb-1 shrink-0">
-                {items.left.map((item) => (
+            <div className="relative w-full h-full flex items-end justify-center pb-2 px-4 md:px-8">
+              {/* Desktop Nav - Unified with consistent spacing */}
+              <nav className="hidden md:flex gap-8 lg:gap-10 items-center justify-center mb-1 shrink-0">
+                {[...items.left, ...items.right].map((item) => (
                   <NavLink key={item.label} {...item} />
                 ))}
               </nav>
 
-              {/* Mobile Menu Button (Left) */}
-              <button
-                className="md:hidden mb-1 p-1 text-white/70 hover:text-white transition-colors"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle menu"
-                aria-expanded={isMobileMenuOpen}
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
-              </button>
-
-              {/* Logo (Center) - Removed */}
-              <div className="flex justify-center shrink-0 mx-2 md:mx-4 mt-1">
+              {/* Mobile Menu Button */}
+              <div className="md:hidden w-full flex items-center justify-between">
+                <button
+                  className="mb-1 p-1 text-white/70 hover:text-white transition-colors"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  aria-label="Toggle menu"
+                  aria-expanded={isMobileMenuOpen}
+                >
+                  {isMobileMenuOpen ? (
+                    <X className="w-5 h-5" />
+                  ) : (
+                    <Menu className="w-5 h-5" />
+                  )}
+                </button>
               </div>
-
-              {/* Desktop Right Nav */}
-              <nav className="hidden md:flex gap-10 items-center shrink-0 mb-1">
-                {items.right.map((item) => (
-                  <NavLink key={item.label} {...item} />
-                ))}
-              </nav>
-
-              {/* Mobile Right Actions - spacer for layout balance */}
-              <div className="md:hidden w-9 mb-1" />
             </div>
           </div>
 

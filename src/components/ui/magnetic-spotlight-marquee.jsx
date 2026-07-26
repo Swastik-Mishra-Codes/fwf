@@ -274,7 +274,7 @@ export function MagneticSpotlightMarquee({
       >
         {/* Title */}
         <h1 
-          className="text-[15vw] md:text-[12rem] font-normal leading-[0.85] tracking-tighter mb-20 text-center flex flex-col items-center"
+          className="text-[13vw] md:text-[11rem] font-normal leading-[0.85] tracking-tighter mb-20 text-center flex flex-col items-center w-full"
           style={{ fontFamily: "'Instrument Serif', serif" }}
         >
           {title.map((line, idx) => (
@@ -292,10 +292,10 @@ export function MagneticSpotlightMarquee({
         <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start mt-8 px-4 md:px-8 gap-8 md:gap-4">
           
           {/* Subtitle / Header (Left side) */}
-          <div className="flex-1 md:max-w-[280px] text-right md:text-right mt-1">
+          <div className="flex-1 md:max-w-[280px] text-right md:text-right mt-1 overflow-hidden">
             <h3 className="text-xl md:text-3xl uppercase tracking-tight font-medium leading-[1.1]">
               {subtitle.map((line, idx) => (
-                <div key={idx} className="wake-target">{line}</div>
+                <div key={idx} className="wake-target whitespace-normal">{line}</div>
               ))}
             </h3>
           </div>
@@ -305,7 +305,7 @@ export function MagneticSpotlightMarquee({
             {paragraphs.map((para, pIdx) => (
               <div key={pIdx} className="flex-1 flex flex-col">
                 {para.map((line, lIdx) => (
-                  <div key={lIdx} className="wake-target whitespace-nowrap">
+                  <div key={lIdx} className="wake-target whitespace-normal">
                     {line}
                   </div>
                 ))}
