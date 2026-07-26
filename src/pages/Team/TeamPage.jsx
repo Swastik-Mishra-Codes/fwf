@@ -260,42 +260,43 @@ export function StaggeredGrid({
             </div>
 
             {/* Faculty in Charge Section */}
-            <section id="faculty" className="w-full max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between gap-12 border-b border-[#1e3457]/30 my-8 relative">
-                <div className="flex-1 space-y-4 text-left">
-                    <p className="text-[#c9a84c] text-xs font-bold uppercase tracking-widest">Academic Guidance</p>
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Faculty In-Charge</h2>
-                    <p className="text-zinc-300 leading-relaxed text-sm md:text-base max-w-xl">
-                        Academic mentorship keeps the club focused on depth, discipline, and long-term mathematical growth.
-                        Our faculty advisor provides research direction, supports mathematical workshops, and guides students
-                        in connecting foundational theory with advanced modern applications.
-                    </p>
-                </div>
-                <div className="w-72 [perspective:800px]">
-                    <div className="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] relative flex items-center justify-center transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl hover:border-transparent group cursor-pointer">
-                        {/* Faculty Photo */}
-                        <img 
-                            src="/assets/team/faculty.png" 
-                            alt="BHARAT SONI"
-                            className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
-                            loading="lazy"
-                        />
-
-                        {/* Gradient Overlay for Hover */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black opacity-60 group-hover:opacity-90 transition-opacity duration-500 z-10" />
-
-                        {/* Content Container (Name and Role) */}
-                        <div className="absolute bottom-0 left-0 w-full p-4 z-20 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                            {/* Name */}
-                            <span className="block text-base font-extrabold text-white tracking-wider drop-shadow-md">BHARAT SONI</span>
-                            {/* Role */}
-                            <span className="block text-[10px] font-medium text-[#c9a84c] uppercase tracking-wider mt-0.5 drop-shadow-md">Faculty Advisor</span>
+            <section id="faculty" className="w-full py-20 flex items-center justify-center border-b border-[#1e3457]/30 relative">
+                {/* Inner container — text + card side by side, visually centred */}
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '4rem', maxWidth: '860px', width: '100%', padding: '0 2rem' }}>
+                    {/* Text Block */}
+                    <div style={{ maxWidth: '380px', flex: '1' }}>
+                        <p className="text-[#c9a84c] text-xs font-bold uppercase tracking-widest mb-2">Academic Guidance</p>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Faculty In-Charge</h2>
+                        <p className="text-zinc-300 leading-relaxed text-sm md:text-base">
+                            Academic mentorship keeps the club focused on depth, discipline, and long-term mathematical growth.
+                            Our faculty advisor provides research direction, supports mathematical workshops, and guides students
+                            in connecting foundational theory with advanced modern applications.
+                        </p>
+                    </div>
+                    {/* Faculty Card */}
+                    <div style={{ width: '240px', flexShrink: 0, perspective: '800px' }}>
+                        <div className="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] relative flex items-center justify-center transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl hover:border-transparent group cursor-pointer">
+                            <img 
+                                src="/assets/team/faculty.png" 
+                                alt="BHARAT SONI"
+                                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                                loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black opacity-60 group-hover:opacity-90 transition-opacity duration-500 z-10" />
+                            <div className="absolute bottom-0 left-0 w-full p-4 z-20 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                <span className="block text-base font-extrabold text-white tracking-wider drop-shadow-md">BHARAT SONI</span>
+                                <span className="block text-[10px] font-medium text-[#c9a84c] uppercase tracking-wider mt-0.5 drop-shadow-md">Faculty Advisor</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            {/* Large gap between Faculty and Meet The Team */}
+            <div style={{ height: '160px' }} />
+
             <section id="members" className="grid place-items-center w-full relative">
-                <div className="w-full flex flex-col items-center justify-center py-6 mt-8 gap-6">
+                <div className="w-full flex flex-col items-center justify-center pt-8 pb-16 gap-8">
                     <AsciiGlitchRipple
                         as="h2"
                         className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest text-white text-center select-none cursor-default uppercase font-sans hover:text-[#c9a84c] transition-colors duration-300"
@@ -306,7 +307,7 @@ export function StaggeredGrid({
                     </AsciiGlitchRipple>
 
                     {/* Year Selector Option Bar - Always Centered */}
-                    <div className="z-30 flex items-center justify-center my-2">
+                    <div className="z-30 flex items-center justify-center my-2 mb-10">
                         <GlassDock 
                             items={dockItems} 
                             dockClassName="bg-[#132340]/80 border-[#1e3457] backdrop-blur-md shadow-2xl py-3 px-6 rounded-2xl"
@@ -316,7 +317,7 @@ export function StaggeredGrid({
 
                 <div 
                     ref={gridFullRef} 
-                    className="grid--full relative w-full my-[4vh] h-auto max-w-none p-4 grid gap-4 grid-cols-7"
+                    className="grid--full relative w-full mt-10 my-[4vh] h-auto max-w-none p-4 grid gap-4 grid-cols-7"
                     style={{
                         gridTemplateRows: `repeat(${totalSlots / 7}, minmax(0, 1fr))`,
                         aspectRatio: `${7 / ((totalSlots / 7) * 1.25)}`
@@ -328,8 +329,8 @@ export function StaggeredGrid({
                             const member = item;
                             const letterName = String.fromCharCode(65 + i);
                             return (
-                                <figure key={`member-${i}`} data-col={i % 7} className="grid__item m-0 relative z-10 [perspective:800px] group cursor-pointer">
-                                    <div className="grid__item-img w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] relative flex items-center justify-center transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-xl group-hover:border-transparent">
+                                <figure key={`member-${i}`} data-col={i % 7} className="grid__item m-0 relative z-10 group cursor-pointer" style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: '0.75rem' }}>
+                                    <div className="grid__item-img [backface-visibility:hidden] rounded-xl overflow-hidden shadow-sm border border-[#1e3457] bg-[#132340] transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-xl group-hover:border-transparent" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
 
                                         {/* Member Photo */}
                                         <img 

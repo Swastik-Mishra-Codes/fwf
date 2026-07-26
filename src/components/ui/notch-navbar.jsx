@@ -36,7 +36,6 @@ export function NotchNavbar({ className, ...props }) {
       { label: "Problems", to: "/problems", icon: BookOpen },
     ],
     right: [
-      { label: "Leaderboard", to: "/leaderboard", icon: Trophy },
       { label: "Team", to: "/team", icon: Users },
       { label: "Developers", to: "/developers", icon: Code },
     ],
@@ -87,7 +86,7 @@ export function NotchNavbar({ className, ...props }) {
             {/* Content Layer */}
             <div className="relative w-full h-full flex items-end justify-between pb-2 px-4 md:px-8">
               {/* Desktop Left Nav */}
-              <nav className="hidden md:flex gap-6 mb-1 shrink-0">
+              <nav className="hidden md:flex gap-10 mb-1 shrink-0">
                 {items.left.map((item) => (
                   <NavLink key={item.label} {...item} />
                 ))}
@@ -112,7 +111,7 @@ export function NotchNavbar({ className, ...props }) {
               </div>
 
               {/* Desktop Right Nav */}
-              <nav className="hidden md:flex gap-6 items-center shrink-0 mb-1">
+              <nav className="hidden md:flex gap-10 items-center shrink-0 mb-1">
                 {items.right.map((item) => (
                   <NavLink key={item.label} {...item} />
                 ))}
